@@ -96,6 +96,8 @@ class Cons(List):
     def __str__(self):
         return "cons({}, {})".format(self.head, self.tail)
 
+# list = Cons(1, Cons(2, Cons(3, Nil())))
+# print(list.tail.head) # print 2
 
 # add_literal
 #
@@ -212,6 +214,7 @@ def add_literal(immutable_map, variable, boolean):
 # solve call 1: [x, a, b]
 # solve call 2: [y, a, b]
 def solve(goals, literals):
+    # goals.tail.head
     pass
 
 def solve_one(formula):

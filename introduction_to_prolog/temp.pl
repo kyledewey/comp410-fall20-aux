@@ -36,3 +36,14 @@ lessThan(2, 3).
 areEqual(X, X).
 
 tripleEqual(A, A, A).
+
+% Prolog: unification and nondeterminism (nondeterministic execution)
+
+% how variables get values: unification
+% "splitting the world": nondeterministic execution
+
+isFoo(foo).
+
+isBetween(Min, Max, Value) :-
+    Value >= Min,
+    Value =< Max.
