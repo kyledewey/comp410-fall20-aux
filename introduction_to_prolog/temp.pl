@@ -44,6 +44,20 @@ tripleEqual(A, A, A).
 
 isFoo(foo).
 
+% rule
+% head (everything before :-): isBetween(Min, Max, Value)
+% body (everything after :-):     Value >= Min, Value =< Max.
+% conjunction: ,
 isBetween(Min, Max, Value) :-
     Value >= Min,
     Value =< Max.
+
+%% isEven(2).
+%% isEven(X) :-
+%%     X = 4; X = 6.
+%% isEven(X) :-
+%%     X = 8.
+%% isEven(10).
+
+isEven(Y) :-
+    0 is mod(Y, 2).
