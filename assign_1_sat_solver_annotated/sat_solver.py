@@ -202,7 +202,9 @@ def add_literal(immutable_map, variable, boolean):
 #  -ImmutableMap: there is a solution; the immutable map holds the solution
 #
 # [a && a, b, c, d]
-# [a, a, b, c, d]
+# Step 1: pop And off from the front [b, c, d]
+# Step 2: push the individual conjucts of and [a, a, b, c, d]
+# Step 3: solve([a, a, b, c, d])
 #
 # Adding something to list:
 # original = Cons(1, Cons(2, Nil))
@@ -211,8 +213,9 @@ def add_literal(immutable_map, variable, boolean):
 #
 # Handling Or:
 # [(x || y), a, b]
-# solve call 1: [x, a, b]
-# solve call 2: [y, a, b]
+# Step 1: pop off first element, [a, b]
+# Step 2a: solve call 1: [x, a, b]
+# Step 2b: solve call 2: [y, a, b]
 def solve(goals, literals):
     # goals.tail.head
     pass
