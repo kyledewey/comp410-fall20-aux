@@ -29,9 +29,13 @@ foo(X) :-
 % X = 4
 % myBetween: Low, High, ValueInRange
 
+% not the most efficient / idiomatic code
 %% myBetween(Low, High, ValueInRange) :-
 %%     Low =< High,
 %%     ValueInRange = Low.
+
+% only gets last value in range
+%% myBetween(Low, Low, Low).
 
 myBetween(Low, High, Low) :-
     Low =< High.
