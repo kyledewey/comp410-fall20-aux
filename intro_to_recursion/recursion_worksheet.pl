@@ -28,10 +28,13 @@ foo(X) :-
 % myBetween(3, 3, X)
 % X = 4
 % myBetween: Low, High, ValueInRange
-myBetween(Low, High, ValueInRange) :-
-    Low =< High,
-    % not done: what is the value?
-    ValueInRange is Low.
+
+%% myBetween(Low, High, ValueInRange) :-
+%%     Low =< High,
+%%     ValueInRange = Low.
+
+myBetween(Low, High, Low) :-
+    Low =< High.
 myBetween(Low, High, ValueInRange) :-
     Low < High,
     NewLow is Low + 1,
