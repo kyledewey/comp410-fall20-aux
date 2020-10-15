@@ -32,3 +32,40 @@ myAppend([Head|Tail], Second, [Head|RestResult]) :-
 %%     Result = [Head|RestResult].
 
 
+% sumAll([1, 2, 3, 4, 5], X).
+% 1 + (2 + (3 + (4 + (5 + 0))))
+sumAll([],0).
+sumAll([Head|Tail],X) :-
+    sumAll(Tail,RestResult),
+    X is Head + RestResult.
+
+% sumAllOther([1, 2, 3, 4, 5], X).
+% ((((0 + 1) + 2) + 3) + 4) + 5
+%
+% result = 0
+% for each element in list:
+%   result += element
+%   # new_result = result + element
+% return result
+%
+
+% result = accumulator = accum
+% sumAllAccum: ListOfElement, Accum, Result
+sumAllAccum([], Accum, Accum).
+sumAllAccum([Head|Tail], Accum, Result) :-
+    NewAccum is Accum + Head,
+    sumAllAccum(Tail, NewAccum, Result).
+
+sumAllAccum(List, Sum) :-
+    sumAllAccum(List, 0, Sum).
+
+sublist([], []).
+sublist([H|T], [H|St]) :- % Case #1: keep the element
+    sublist(T, St).
+sublist([_|T], Sublist) :- % Case #2: don't keep the element
+    sublist(T, Sublist).
+
+% [1, 2, 3]
+% First choice: keep 1
+% Second choice: not to keep 2
+% Third choice: keep 3
