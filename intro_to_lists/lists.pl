@@ -69,3 +69,30 @@ sublist([_|T], Sublist) :- % Case #2: don't keep the element
 % First choice: keep 1
 % Second choice: not to keep 2
 % Third choice: keep 3
+
+% myReverse([3, 2, 1], Result).
+% myReverse([3, 2, 1], [], Result).
+%   myReverse([2, 1], [3], Result).
+%     myReverse([1], [2, 3], Result).
+%       myReverse([], [1, 2, 3], Result).
+%       myReverse([], [1, 2, 3], Result).
+%
+% myReverse/3
+%
+myReverse([], Accum, Accum).
+myReverse([Head|Tail], Accum, Result) :-
+    myReverse(Tail, [Head|Accum], Result).
+
+% problem query (arity 2): myReverse(List, [3, 2, 1]).
+% problem query (arity 3): myReverse(List, [], [3, 2, 1])
+%
+% myReverse/2
+%
+myReverse(List, Result) :-
+    myReverse(List, [], Result).
+
+% var(X)
+%
+% nonvar(X)
+%
+% ground(X)
