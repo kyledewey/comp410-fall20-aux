@@ -9,13 +9,6 @@ foo1(X, 3) :-
     X \= 1,
     X \= 2.
 
-
-% only handles first and third cases of foo1
-%% foo2(Input, Output) :-
-%%     (Input = 1) ->
-%%         Output = 2;
-%%         Output = 3.
-
 % Way two: uses implication for mutual exclusion; gets ugly
 foo2(Input, Output) :-
     (Input = 1) ->
@@ -28,4 +21,12 @@ foo2(Input, Output) :-
 foo3(1, 2) :- !.
 foo3(2, 5) :- !.
 foo3(_, 3).
+
+fooFirstInstantiated(...).
+fooNoneInstantiated(...).
+
+foo(X, Y) :-
+    (var(X), nonvar(Y)) ->
+        fooFirstInstantiated(X, Y);
+        fooNoneInstantiated(X, Y).
 
