@@ -52,10 +52,8 @@ interpret(Call) :-
 %      ,(interpret(C1),
 %        interpret(C2))))
 
-myAppend([], List, List).
-myAppend([H|T], List, [H|Rest]) :-
-    myAppend(T, List, Rest).
 
+% Doesn't display anything
 interp0(true) :- !.
 interp0(','(A, B)) :-
     !,
@@ -65,6 +63,7 @@ interp0(Call) :-
     clause(Call, Body),
     interp0(Body).
 
+% Displays calls
 interp1(true) :- !.
 interp1(','(A, B)) :-
     !,
@@ -75,6 +74,29 @@ interp1(Call) :-
     clause(Call, Body),
     interp1(Body).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+myAppend([], List,  List) :- true.
+myAppend([H|T], List, [H|Rest]) :-
+    myAppend(T, List, Rest).
+
+% Displays calls and returns
 interp2(true) :- !.
 interp2(','(A, B)) :-
     !,
@@ -86,3 +108,37 @@ interp2(Call) :-
     interp2(Body),
     format('Return: ~w~n', [Call]).
 
+
+%% HAVE:
+%% Call (0): myAppend([1,2],[3,4,5],_26300)
+%% Call (0): myAppend([2],[3,4,5],_26586)
+%% Call (0): myAppend([],[3,4,5],_26632)
+%% Exit (0): myAppend([],[3,4,5],[3,4,5])
+%% Exit (0): myAppend([2],[3,4,5],[2,3,4,5])
+%% Exit (0): myAppend([1,2],[3,4,5],[1,2,3,4,5])
+%% Result = [1, 2, 3, 4, 5].
+
+%% WANT:
+%% Call (0): myAppend([1,2],[3,4,5],_26300)
+%% Call (1): myAppend([2],[3,4,5],_26586)
+%% Call (2): myAppend([],[3,4,5],_26632)
+%% Exit (2): myAppend([],[3,4,5],[3,4,5])
+%% Exit (1): myAppend([2],[3,4,5],[2,3,4,5])
+%% Exit (0): myAppend([1,2],[3,4,5],[1,2,3,4,5])
+%% Result = [1, 2, 3, 4, 5].
+
+interp3(Call) :-
+    interp3(Call, 0).
+
+% interp3: Call, Depth
+interp3(true, _) :- !.
+interp3(','(A, B), Depth) :-
+    !,
+    interp3(A, Depth),
+    interp3(B, Depth).
+interp3(Call, Depth) :-
+    format('Call (~w): ~w~n', [Depth, Call]),
+    clause(Call, Body),
+    NewDepth is Depth + 1,
+    interp3(Body, NewDepth),
+    format('Exit (~w): ~w~n', [Depth, Call]).
