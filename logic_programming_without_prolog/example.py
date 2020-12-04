@@ -21,5 +21,7 @@ def gen(depth):
             for right in gen(depth - 1):
                 yield InternalNode(left, 0, right)
 
-
-    
+def foo():
+    yield 1
+    yield 2
+    yield 3
